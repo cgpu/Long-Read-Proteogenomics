@@ -696,6 +696,7 @@ ORF Calling
 process orf_calling {
   tag "${orf_coord}, ${gencode_gtf}, ${sample_gtf}, ${pb_gene}, ${classification}, ${sample_fasta} "
   cpus params.max_cpus
+  label 'cpus_med'
   publishDir "${params.outdir}/${params.name}/orf_calling/", mode: 'copy'
 
   input:
