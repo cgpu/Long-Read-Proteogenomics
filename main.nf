@@ -1108,7 +1108,7 @@ process mass_spec_raw_convert{
       params.mass_spec != false
 
     input:
-        file(raw_file) from ch_mass_spec_raw
+        file(raw_file) from ch_mass_spec_raw.take(params.mass_spec_sample_subset)
     output:
         file("*") into ch_mass_spec_converted
     script:
