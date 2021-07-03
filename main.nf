@@ -1118,7 +1118,7 @@ process mass_spec_raw_convert{
 }
 
 ch_mass_spec_combined = ch_mass_spec_mzml.concat(ch_mass_spec_converted)
-ch_mass_spec_combined.take("${params.mass_spec_sample_subset}").into{
+ch_mass_spec_combined.take(params.mass_spec_sample_subset).into{
   ch_mass_spec_for_pacbio_refined
   ch_mass_spec_for_pacbio_filtered
   ch_mass_spec_for_pacbio_hybrid
