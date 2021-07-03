@@ -283,7 +283,6 @@ if( params.sqanti_classification==false || params.sqanti_fasta==false || params.
   ---------------------------------------------------*/
   process isoseq3 {
     tag "${sample_ccs}, ${genome_fasta}, ${primers_fasta}"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/isoseq3/", mode: 'copy'
 
     input:
@@ -343,7 +342,6 @@ if( params.sqanti_classification==false || params.sqanti_fasta==false || params.
   }
   else{
       process star_generate_genome{
-          cpus params.max_cpus
           publishDir "${params.outdir}/${params.name}/star_index", mode: "copy"
           
           when:
@@ -371,7 +369,6 @@ if( params.sqanti_classification==false || params.sqanti_fasta==false || params.
 
   if(params.fastq_read_1 != false | params.fastq_read_2 !=false){
       process star_alignment{
-          cpus params.max_cpus
           publishDir "${params.outdir}/${params.name}/star", mode: "copy"
           when:
               params.fastq_read_1 != false | params.fastq_read_2 !=false
@@ -410,7 +407,6 @@ if( params.sqanti_classification==false || params.sqanti_fasta==false || params.
   ---------------------------------------------------*/
   process sqanti3 {
     tag "${fl_count}, ${gencode_gtf}, ${gencode_fasta}, ${sample_gtf},"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/sqanti3/", mode: 'copy'
 
     input:
@@ -829,7 +825,7 @@ Rename CDS to Exon
 process rename_cds_to_exon{
     publishDir "${params.outdir}/${params.name}/rename_cds/", mode: 'copy'
     tag "${params.name} ${reference_gtf} ${sample_gtf}"
-    cpus params.max_cpus
+
     input:
         file(reference_gtf) from ch_gencode_gtf
         file(sample_gtf) from ch_pb_cds_rename_cds
@@ -1137,7 +1133,6 @@ Metamorpheus GENCODE
 process metamorpheus_with_gencode_database{
     label 'metamorpheus'
     tag "${mass_spec}"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/metamorpheus/gencode", mode: 'copy'
     when:
       params.mass_spec != false
@@ -1172,7 +1167,6 @@ Metamorpheus UniProt
 process metamorpheus_with_uniprot_database{
     label 'metamorpheus'
     tag "${mass_spec}"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/metamorpheus/uniprot", mode: 'copy'
     when:
       params.mass_spec != false
@@ -1243,7 +1237,6 @@ MetaMorpheus with Sample Specific Database - Refined
 process metamorpheus_with_sample_specific_database_refined{
     label 'metamorpheus'
     tag "${mass_spec}"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/metamorpheus/pacbio/refined", mode: 'copy'
     when:
       params.mass_spec != false
@@ -1285,7 +1278,6 @@ MetaMorpheus with Sample Specific Database - Filtered
 process metamorpheus_with_sample_specific_database_filtered{
     label 'metamorpheus'
     tag "${mass_spec}"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/metamorpheus/pacbio/filtered", mode: 'copy'
     when:
       params.mass_spec != false
@@ -1327,7 +1319,6 @@ MetaMorpheus with Sample Specific Database - Hybrid
 process metamorpheus_with_sample_specific_database_hybrid{
     label 'metamorpheus'
     tag "${mass_spec}"
-    cpus params.max_cpus
     publishDir "${params.outdir}/${params.name}/metamorpheus/pacbio/hybrid", mode: 'copy'
     when:
       params.mass_spec != false
